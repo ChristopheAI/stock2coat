@@ -1,0 +1,524 @@
+
+> stock2coat-web@0.1.0 dev /Users/Christophe/Desktop/Projects/Stock2Coat/app/stock2coat-web
+> next dev --turbopack
+
+   ▲ Next.js 15.4.1 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.111:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1888ms
+ ○ Compiling / ...
+ ✓ Compiled / in 4.2s
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+next/font: warning:
+Failed to download `Geist` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+next/font: warning:
+Failed to download `Geist Mono` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ GET / 200 in 4804ms
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+next/font: warning:
+Failed to download `Geist` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+next/font: warning:
+Failed to download `Geist Mono` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+next/font: warning:
+Failed to download `Geist` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+next/font: warning:
+Failed to download `Geist Mono` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ GET / 200 in 139ms
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+next/font: warning:
+Failed to download `Geist` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+next/font: warning:
+Failed to download `Geist Mono` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+next/font: warning:
+Failed to download `Geist` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+next/font: warning:
+Failed to download `Geist Mono` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ GET / 200 in 128ms
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_e531dabc.module.css
+next/font: warning:
+Failed to download `Geist` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_e531dabc.module.css
+  [next]/internal/font/google/geist_e531dabc.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/geist_mono_68a01160.module.css
+next/font: warning:
+Failed to download `Geist Mono` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/geist_mono_68a01160.module.css
+  [next]/internal/font/google/geist_mono_68a01160.js
+  ./src/app/layout.tsx
+
+
+ ✓ Compiled in 65ms
+ ✓ Compiled in 71ms
+ ✓ Compiled in 85ms
+ ✓ Compiled in 511ms
+ ✓ Compiled / in 32ms
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⨯ ReferenceError: geistSans is not defined
+    at RootLayout (src/app/layout.tsx:21:22)
+  19 |     <html lang="en">
+  20 |       <body
+> 21 |         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+     |                      ^
+  22 |       >
+  23 |         {children}
+  24 |       </body> {
+  digest: '3404921832'
+}
+ GET / 200 in 230ms
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⨯ ReferenceError: geistSans is not defined
+    at RootLayout (src/app/layout.tsx:21:22)
+  19 |     <html lang="en">
+  20 |       <body
+> 21 |         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+     |                      ^
+  22 |       >
+  23 |         {children}
+  24 |       </body> {
+  digest: '3404921832'
+}
+ GET / 500 in 124ms
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⨯ ReferenceError: geistSans is not defined
+    at RootLayout (src/app/layout.tsx:21:22)
+  19 |     <html lang="en">
+  20 |       <body
+> 21 |         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+     |                      ^
+  22 |       >
+  23 |         {children}
+  24 |       </body> {
+  digest: '3404921832'
+}
+ GET / 500 in 95ms
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ✓ Compiled in 685ms
+ ✓ Compiled / in 32ms
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ GET / 200 in 419ms
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+Error while requesting resource
+Received response with status 404 when requesting https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ⚠ [next]/internal/font/google/inter_59dee874.module.css
+next/font: warning:
+Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Import trace:
+  [next]/internal/font/google/inter_59dee874.module.css
+  [next]/internal/font/google/inter_59dee874.js
+  ./src/app/layout.tsx
+
+
+ ✓ Compiled in 271ms
+ ✓ Compiled / in 33ms
+ ⨯ ReferenceError: inter is not defined
+    at RootLayout (src/app/layout.tsx:17:26)
+  15 |   return (
+  16 |     <html lang="nl">
+> 17 |       <body className={`${inter.className} antialiased`}>
+     |                          ^
+  18 |         <Shell>{children}</Shell>
+  19 |       </body>
+  20 |     </html> {
+  digest: '2322541470'
+}
+ GET / 200 in 215ms
+ ⨯ ReferenceError: inter is not defined
+    at RootLayout (src/app/layout.tsx:17:26)
+  15 |   return (
+  16 |     <html lang="nl">
+> 17 |       <body className={`${inter.className} antialiased`}>
+     |                          ^
+  18 |         <Shell>{children}</Shell>
+  19 |       </body>
+  20 |     </html> {
+  digest: '2322541470'
+}
+ GET / 500 in 196ms
+ ✓ Compiled in 90ms
+ ✓ Compiled / in 36ms
+ GET / 200 in 399ms
+ ✓ Compiled / in 30ms
+ GET / 200 in 235ms
+ GET / 200 in 236ms
+ ✓ Compiled in 143ms
+ ✓ Compiled in 136ms
+ ✓ Compiled in 92ms
+ ✓ Compiled in 96ms
+ ✓ Compiled in 90ms
+ ✓ Compiled in 82ms
+ ✓ Compiled in 82ms
+ GET / 200 in 273ms
+ ✓ Compiled in 109ms
+ GET / 200 in 379ms
+ ✓ Compiled in 275ms
+ GET / 200 in 376ms
+ ✓ Compiled in 508ms
+ GET / 200 in 453ms
+ ✓ Compiled in 122ms
+ ✓ Compiled in 86ms
+ ○ Compiling /inventory ...
+ ✓ Compiled /inventory in 548ms
+ GET /inventory 200 in 719ms
+ GET / 200 in 65ms
+ GET /inventory 200 in 67ms
+ ✓ Compiled /_not-found/page in 377ms
+ GET /settings 404 in 479ms
+ GET /settings 404 in 269ms
+ GET /inventory 200 in 61ms
+ GET / 200 in 70ms
+ GET /inventory 200 in 67ms
+ GET / 200 in 78ms
+ GET /inventory 200 in 64ms
+ ✓ Compiled in 82ms
+ ✓ Compiled in 80ms
+ ✓ Compiled in 90ms
+ ✓ Compiled in 98ms
+ ✓ Compiled in 136ms
+ ✓ Compiled in 89ms
+ ✓ Compiled in 92ms
+ ✓ Compiled in 98ms
+ ✓ Compiled in 80ms
+ ✓ Compiled in 104ms
+ ✓ Compiled in 197ms
+ GET / 200 in 76ms
+ GET /inventory 200 in 332ms
+ ✓ Compiled in 259ms
+ ✓ Compiled in 110ms
+ ✓ Compiled in 94ms
+ ✓ Compiled in 103ms
+ ✓ Compiled in 96ms
+ ✓ Compiled in 754ms
+ ✓ Compiled in 105ms
+ GET /inventory 200 in 795ms
+ GET / 200 in 87ms
+ GET /inventory 200 in 69ms
