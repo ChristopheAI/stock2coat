@@ -1,9 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { Search, Filter, ChevronDown } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select'
 import { InventoryItem, InventoryStatus } from '@/lib/types'
 import { InventoryRow } from './inventory-row'
 
@@ -16,7 +22,7 @@ interface InventoryTableProps {
 
 export function InventoryTable({ data, onConsume, onEdit, onRowClick }: InventoryTableProps) {
   const [searchTerm, setSearchTerm] = useState('')
-  const [statusFilter] = useState<InventoryStatus | 'ALL'>('ALL')
+  const [statusFilter, setStatusFilter] = useState<InventoryStatus | 'ALL'>('ALL')
 
   const filteredData = data.filter(item => {
     const matchesSearch = item.ralCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -56,11 +62,17 @@ export function InventoryTable({ data, onConsume, onEdit, onRowClick }: Inventor
               className="pl-10"
             />
           </div>
-          <Button variant="outline" className="flex items-center gap-2">
-            <Filter className="h-4 w-4" />
-            Status
-            <ChevronDown className="h-4 w-4" />
-          </Button>
+          <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as InventoryStatus | 'ALL')}>
+            <SelectTrigger className="w-32">
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">Alle</SelectItem>
+              <SelectItem value="OK">OK</SelectItem>
+              <SelectItem value="GEM">Gemiddeld</SelectItem>
+              <SelectItem value="LAAG">Laag</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
