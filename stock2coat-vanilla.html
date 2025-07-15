@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock2Coat Poeder Inventaris</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .header p {
+            color: #6b7280;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            width: 16rem;
+            font-size: 0.875rem;
+            background-color: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+            color: #6b7280;
+            pointer-events: none;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            background-color: white;
+            font-size: 0.875rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #f9fafb;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-sm {
+            padding: 0.375rem 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .badge {
+            background-color: #e5e7eb;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+
+        .table-container {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f9fafb;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:hover {
+            background-color: #f3f4f6;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .color-box {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .ral-code {
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+
+        .brand-name {
+            font-weight: 500;
+        }
+
+        .product-code {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-family: monospace;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid;
+            display: inline-block;
+        }
+
+        .status-laag {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border-color: #fecaca;
+        }
+
+        .status-gem {
+            background-color: #fef3c7;
+            color: #92400e;
+            border-color: #fde68a;
+        }
+
+        .status-ok {
+            background-color: #d1fae5;
+            color: #065f46;
+            border-color: #a7f3d0;
+        }
+
+        .stock-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .stock-current {
+            font-weight: 500;
+        }
+
+        .stock-max {
+            color: #6b7280;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 0.5rem;
+            background-color: #e5e7eb;
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-low {
+            background-color: #ef4444;
+        }
+
+        .progress-medium {
+            background-color: #f59e0b;
+        }
+
+        .progress-high {
+            background-color: #10b981;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            padding: 0.5rem;
+            z-index: 1000;
+            margin-top: 0.25rem;
+        }
+
+        .dropdown.open .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 0.25rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .text-muted {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .sort-icon {
+            display: inline-block;
+            margin-left: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .sort-icon.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Stock2Coat Poeder Inventaris</h1>
+                <p>Beheer van poedercoating voorraad en status</p>
+            </div>
+            <div class="text-muted" id="itemCount">
+                50 van 50 items
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="search-container">
+                <input
+                    type="text"
+                    class="search-input"
+                    id="searchInput"
+                    placeholder="Zoek RAL code..."
+                />
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </div>
+
+            <div class="dropdown" id="statusDropdown">
+                <button class="btn" id="statusButton">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                    Status
+                    <span class="badge" id="statusBadge" style="display: none;">0</span>
+                </button>
+                <div class="dropdown-content">
+                    <div style="padding: 0.5rem; font-weight: 500; font-size: 0.875rem;">
+                        Filter op status
+                    </div>
+                    <div class="dropdown-item">
+                        <input type="checkbox" id="status-laag" value="LAAG">
+                        <label for="status-laag" style="flex: 1; cursor: pointer;">
+                            LAAG (<span id="count-laag">0</span>)
+                        </label>
+                    </div>
+                    <div class="dropdown-item">
+                        <input type="checkbox" id="status-gem" value="GEM">
+                        <label for="status-gem" style="flex: 1; cursor: pointer;">
+                            GEM (<span id="count-gem">0</span>)
+                        </label>
+                    </div>
+                    <div class="dropdown-item">
+                        <input type="checkbox" id="status-ok" value="OK">
+                        <label for="status-ok" style="flex: 1; cursor: pointer;">
+                            OK (<span id="count-ok">0</span>)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-sort="ralCode">
+                            RAL Code
+                            <span class="sort-icon">↕</span>
+                        </th>
+                        <th data-sort="brand">
+                            Merk/Product
+                            <span class="sort-icon">↕</span>
+                        </th>
+                        <th data-sort="status">
+                            Status
+                            <span class="sort-icon">↕</span>
+                        </th>
+                        <th data-sort="stockLevel">
+                            Voorraad
+                            <span class="sort-icon">↕</span>
+                        </th>
+                        <th>Locatie</th>
+                        <th>Laatst Bijgewerkt</th>
+                        <th>Acties</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <label for="page-size">Rijen per pagina</label>
+                <select id="pageSize" style="padding: 0.375rem 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; background-color: white; font-size: 0.875rem;">
+                    <option value="10">10</option>
+                    <option value="25" selected>25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+
+            <div class="text-muted" id="pageInfo">
+                1-25 van 50
+            </div>
+
+            <div class="pagination-controls">
+                <button class="btn" id="firstPage">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="11 17 6 12 11 7"></polyline>
+                        <polyline points="18 17 13 12 18 7"></polyline>
+                    </svg>
+                </button>
+                <button class="btn" id="prevPage">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button class="btn" id="nextPage">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+                <button class="btn" id="lastPage">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="13 17 18 12 13 7"></polyline>
+                        <polyline points="6 17 11 12 6 7"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data genereren
+        const ralCodes = [
+            { code: "1000", color: "#BEBD7F" }, { code: "1001", color: "#C2B078" },
+            { code: "2000", color: "#ED760E" }, { code: "3000", color: "#AF2B1E" },
+            { code: "5000", color: "#354D73" }, { code: "6000", color: "#316650" },
+            { code: "7000", color: "#78858B" }, { code: "7016", color: "#293133" },
+            { code: "7035", color: "#D7D3C1" }, { code: "9001", color: "#FDF4E3" },
+            { code: "9005", color: "#0A0A0A" }, { code: "9010", color: "#FFFFFF" },
+            { code: "9016", color: "#F6F6F6" }
+        ];
+
+        const brands = ["AkzoNobel", "PPG", "Axalta", "Jotun", "Sherwin-Williams", "Teknos", "Hempel"];
+        const statuses = ["LAAG", "GEM", "OK"];
+        const locations = ["A1-01", "A1-02", "A2-01", "B1-01", "B1-02", "C1-01"];
+
+        const data = Array.from({ length: 50 }, (_, i) => {
+            const ral = ralCodes[i % ralCodes.length];
+            const maxStock = Math.floor(Math.random() * 500) + 100;
+            const stockLevel = Math.floor(Math.random() * maxStock);
+            
+            return {
+                id: `powder-${i + 1}`,
+                ralCode: ral.code,
+                ralColor: ral.color,
+                brand: brands[Math.floor(Math.random() * brands.length)],
+                productCode: `PC${String(Math.floor(Math.random() * 9999)).padStart(4, '0')}`,
+                status: statuses[Math.floor(Math.random() * statuses.length)],
+                stockLevel,
+                maxStock,
+                unit: "kg",
+                location: locations[Math.floor(Math.random() * locations.length)],
+                lastUpdated: new Date(Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000).toLocaleDateString("nl-NL"),
+            };
+        });
+
+        // State
+        let filteredData = [...data];
+        let currentPage = 0;
+        let pageSize = 25;
+        let sortConfig = { key: 'ralCode', direction: 'asc' };
+        let searchTerm = '';
+        let selectedStatuses = [];
+
+        // DOM elementen
+        const tableBody = document.getElementById('tableBody');
+        const searchInput = document.getElementById('searchInput');
+        const statusDropdown = document.getElementById('statusDropdown');
+        const statusButton = document.getElementById('statusButton');
+        const statusBadge = document.getElementById('statusBadge');
+        const pageSizeSelect = document.getElementById('pageSize');
+        const itemCount = document.getElementById('itemCount');
+        const pageInfo = document.getElementById('pageInfo');
+
+        // Status counts berekenen
+        function updateStatusCounts() {
+            const counts = { LAAG: 0, GEM: 0, OK: 0 };
+            data.forEach(item => counts[item.status]++);
+            document.getElementById('count-laag').textContent = counts.LAAG;
+            document.getElementById('count-gem').textContent = counts.GEM;
+            document.getElementById('count-ok').textContent = counts.OK;
+        }
+
+        // Filter en sort functie
+        function filterAndSort() {
+            filteredData = [...data];
+
+            // Search filter
+            if (searchTerm) {
+                filteredData = filteredData.filter(item => 
+                    item.ralCode.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+
+            // Status filter
+            if (selectedStatuses.length > 0) {
+                filteredData = filteredData.filter(item => 
+                    selectedStatuses.includes(item.status)
+                );
+            }
+
+            // Sort
+            filteredData.sort((a, b) => {
+                const aValue = a[sortConfig.key];
+                const bValue = b[sortConfig.key];
+                
+                if (sortConfig.direction === 'asc') {
+                    return aValue > bValue ? 1 : -1;
+                } else {
+                    return aValue < bValue ? 1 : -1;
+                }
+            });
+
+            currentPage = 0;
+            updateUI();
+        }
+
+        // UI updaten
+        function updateUI() {
+            // Item count
+            itemCount.textContent = `${filteredData.length} van ${data.length} items`;
+
+            // Status badge
+            if (selectedStatuses.length > 0) {
+                statusBadge.style.display = 'inline-block';
+                statusBadge.textContent = selectedStatuses.length;
+            } else {
+                statusBadge.style.display = 'none';
+            }
+
+            // Pagination info
+            const start = currentPage * pageSize + 1;
+            const end = Math.min((currentPage + 1) * pageSize, filteredData.length);
+            pageInfo.textContent = filteredData.length > 0 ? `${start}-${end} van ${filteredData.length}` : '0 van 0';
+
+            // Pagination buttons
+            document.getElementById('firstPage').disabled = currentPage === 0;
+            document.getElementById('prevPage').disabled = currentPage === 0;
+            document.getElementById('nextPage').disabled = (currentPage + 1) * pageSize >= filteredData.length;
+            document.getElementById('lastPage').disabled = (currentPage + 1) * pageSize >= filteredData.length;
+
+            // Render table
+            renderTable();
+        }
+
+        // Tabel renderen
+        function renderTable() {
+            const start = currentPage * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredData.slice(start, end);
+
+            tableBody.innerHTML = pageData.map(item => {
+                const percentage = (item.stockLevel / item.maxStock) * 100;
+                const progressClass = percentage < 20 ? 'progress-low' : percentage < 50 ? 'progress-medium' : 'progress-high';
+                const statusClass = item.status === 'LAAG' ? 'status-laag' : item.status === 'GEM' ? 'status-gem' : 'status-ok';
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="color-swatch">
+                                <div class="color-box" style="background-color: ${item.ralColor}" title="RAL ${item.ralCode}"></div>
+                                <span class="ral-code">${item.ralCode}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="brand-name">${item.brand}</div>
+                                <div class="product-code">${item.productCode}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="status-badge ${statusClass}">${item.status}</span>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="stock-text">
+                                    <span class="stock-current">${item.stockLevel} ${item.unit}</span>
+                                    <span class="stock-max">${item.maxStock} ${item.unit}</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill ${progressClass}" style="width: ${percentage}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${item.location}</td>
+                        <td class="text-muted">${item.lastUpdated}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn btn-sm">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                    Verbruik
+                                </button>
+                                <button class="btn btn-sm">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                    </svg>
+                                    Bewerken
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            filterAndSort();
+        });
+
+        statusButton.addEventListener('click', () => {
+            statusDropdown.classList.toggle('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!statusDropdown.contains(e.target)) {
+                statusDropdown.classList.remove('open');
+            }
+        });
+
+        document.querySelectorAll('#statusDropdown input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    selectedStatuses.push(e.target.value);
+                } else {
+                    selectedStatuses = selectedStatuses.filter(s => s !== e.target.value);
+                }
+                filterAndSort();
+            });
+        });
+
+        document.querySelectorAll('th[data-sort]').forEach(th => {
+            th.addEventListener('click', () => {
+                const key = th.getAttribute('data-sort');
+                if (sortConfig.key === key) {
+                    sortConfig.direction = sortConfig.direction === 'asc' ? 'desc' : 'asc';
+                } else {
+                    sortConfig.key = key;
+                    sortConfig.direction = 'asc';
+                }
+
+                // Update sort icons
+                document.querySelectorAll('.sort-icon').forEach(icon => {
+                    icon.classList.remove('active');
+                    icon.textContent = '↕';
+                });
+                
+                const icon = th.querySelector('.sort-icon');
+                icon.classList.add('active');
+                icon.textContent = sortConfig.direction === 'asc' ? '↑' : '↓';
+
+                filterAndSort();
+            });
+        });
+
+        pageSizeSelect.addEventListener('change', (e) => {
+            pageSize = parseInt(e.target.value);
+            currentPage = 0;
+            updateUI();
+        });
+
+        document.getElementById('firstPage').addEventListener('click', () => {
+            currentPage = 0;
+            updateUI();
+        });
+
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                updateUI();
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            if ((currentPage + 1) * pageSize < filteredData.length) {
+                currentPage++;
+                updateUI();
+            }
+        });
+
+        document.getElementById('lastPage').addEventListener('click', () => {
+            currentPage = Math.floor((filteredData.length - 1) / pageSize);
+            updateUI();
+        });
+
+        // Initialiseren
+        updateStatusCounts();
+        updateUI();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock2Coat - Professioneel Poedercoating Voorraadbeheersysteem</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .header-subtitle {
+            color: var(--gray-600);
+            margin-top: 0.25rem;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        /* Controls */
+        .controls {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.625rem 1rem 0.625rem 2.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.125rem;
+            height: 1.125rem;
+            color: var(--gray-400);
+            pointer-events: none;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.625rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            background-color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background-color: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        .btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-sm {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.8125rem;
+        }
+
+        .btn-icon {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--gray-200);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            z-index: 1000;
+            margin-top: 0.25rem;
+        }
+
+        .dropdown.open .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-header {
+            padding: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 0.5rem;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--gray-100);
+        }
+
+        /* Badges */
+        .badge {
+            padding: 0.125rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .badge-count {
+            background-color: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .badge-success {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-danger {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: var(--gray-50);
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        th {
+            padding: 0.875rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            background-color: var(--gray-50);
+            z-index: 10;
+        }
+
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+        }
+
+        th.sortable:hover {
+            background-color: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .sort-indicator {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .sort-indicator.active {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: var(--gray-50);
+        }
+
+        tbody tr.selected {
+            background-color: #eff6ff;
+        }
+
+        /* Checkbox */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox {
+            width: 1.125rem;
+            height: 1.125rem;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        /* Color swatch */
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .color-box {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.375rem;
+            border: 1px solid var(--gray-300);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .color-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 47%, rgba(0,0,0,0.1) 47%, rgba(0,0,0,0.1) 53%, transparent 53%);
+        }
+
+        .ral-code {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* Product info */
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.125rem;
+        }
+
+        .brand-name {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .product-code {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Stock indicator */
+        .stock-indicator {
+            min-width: 120px;
+        }
+
+        .stock-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-bottom: 0.375rem;
+        }
+
+        .stock-current {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .stock-max {
+            color: var(--gray-500);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 0.375rem;
+            background-color: var(--gray-200);
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+            border-radius: 9999px;
+        }
+
+        .progress-low {
+            background-color: var(--danger);
+        }
+
+        .progress-medium {
+            background-color: var(--warning);
+        }
+
+        .progress-high {
+            background-color: var(--success);
+        }
+
+        /* Actions */
+        .actions {
+            display: flex;
+            gap: 0.375rem;
+        }
+
+        /* Pagination */
+        .pagination-container {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-info {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .page-input {
+            width: 4rem;
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            text-align: center;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-500);
+        }
+
+        .empty-state-icon {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto 1rem;
+            color: var(--gray-300);
+        }
+
+        .empty-state-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Loading state */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            color: var(--gray-500);
+        }
+
+        .spinner {
+            width: 2rem;
+            height: 2rem;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .controls-row {
+                flex-direction: column;
+            }
+
+            .search-container {
+                min-width: 100%;
+            }
+
+            .hide-mobile {
+                display: none;
+            }
+
+            .table-wrapper {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .pagination-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Tooltips */
+        [data-tooltip] {
+            position: relative;
+            cursor: help;
+        }
+
+        [data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--gray-900);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Column filters */
+        .column-filter {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 0.5rem;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .column-filter:hover {
+            background-color: var(--gray-200);
+        }
+
+        .column-filter.active {
+            background-color: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div>
+                    <h1>Stock2Coat Voorraadbeheersysteem</h1>
+                    <p class="header-subtitle">Professioneel poedercoating voorraadbeheer</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalItems">0</div>
+                        <div class="stat-label">Totaal items</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="lowStock">0</div>
+                        <div class="stat-label">Lage voorraad</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalValue">€0</div>
+                        <div class="stat-label">Voorraadwaarde</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="controls-row">
+                <div class="search-container">
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="searchInput"
+                        placeholder="Zoek op RAL code, merk of locatie..."
+                        aria-label="Zoek in voorraad"
+                    />
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </div>
+
+                <div class="dropdown" id="statusDropdown">
+                    <button class="btn" aria-label="Filter op status" aria-expanded="false">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        Status
+                        <span class="badge badge-count" id="statusBadge" style="display: none;">0</span>
+                    </button>
+                    <div class="dropdown-content" role="menu">
+                        <div class="dropdown-header">Filter op status</div>
+                        <div class="dropdown-item" role="menuitem">
+                            <input type="checkbox" id="status-laag" value="LAAG" class="checkbox">
+                            <label for="status-laag" style="flex: 1; cursor: pointer;">
+                                <span class="badge badge-danger">LAAG</span>
+                                <span style="margin-left: 0.5rem;">(<span id="count-laag">0</span>)</span>
+                            </label>
+                        </div>
+                        <div class="dropdown-item" role="menuitem">
+                            <input type="checkbox" id="status-gem" value="GEM" class="checkbox">
+                            <label for="status-gem" style="flex: 1; cursor: pointer;">
+                                <span class="badge badge-warning">GEM</span>
+                                <span style="margin-left: 0.5rem;">(<span id="count-gem">0</span>)</span>
+                            </label>
+                        </div>
+                        <div class="dropdown-item" role="menuitem">
+                            <input type="checkbox" id="status-ok" value="OK" class="checkbox">
+                            <label for="status-ok" style="flex: 1; cursor: pointer;">
+                                <span class="badge badge-success">OK</span>
+                                <span style="margin-left: 0.5rem;">(<span id="count-ok">0</span>)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown" id="locationDropdown">
+                    <button class="btn" aria-label="Filter op locatie" aria-expanded="false">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Locatie
+                        <span class="badge badge-count" id="locationBadge" style="display: none;">0</span>
+                    </button>
+                    <div class="dropdown-content" role="menu" id="locationMenu">
+                        <div class="dropdown-header">Filter op locatie</div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" id="bulkAction" disabled>
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                    </svg>
+                    Bulk acties (<span id="selectedCount">0</span>)
+                </button>
+            </div>
+
+            <div class="controls-row">
+                <button class="btn" id="exportBtn">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Exporteer
+                </button>
+
+                <button class="btn" id="refreshBtn">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                    Vernieuwen
+                </button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <div class="table-wrapper">
+                <table role="table" aria-label="Voorraad overzicht">
+                    <thead>
+                        <tr role="row">
+                            <th role="columnheader" style="width: 40px;">
+                                <div class="checkbox-wrapper">
+                                    <input type="checkbox" id="selectAll" class="checkbox" aria-label="Selecteer alle items">
+                                </div>
+                            </th>
+                            <th role="columnheader" class="sortable" data-sort="ralCode" aria-sort="ascending">
+                                RAL Code
+                                <span class="sort-indicator active" aria-hidden="true">↑</span>
+                            </th>
+                            <th role="columnheader" class="sortable" data-sort="brand">
+                                Merk/Product
+                                <span class="sort-indicator" aria-hidden="true">↕</span>
+                            </th>
+                            <th role="columnheader" class="sortable" data-sort="status">
+                                Status
+                                <span class="sort-indicator" aria-hidden="true">↕</span>
+                            </th>
+                            <th role="columnheader" class="sortable" data-sort="stockLevel">
+                                Voorraad
+                                <span class="sort-indicator" aria-hidden="true">↕</span>
+                            </th>
+                            <th role="columnheader" class="hide-mobile">Locatie</th>
+                            <th role="columnheader" class="hide-mobile sortable" data-sort="lastUpdated">
+                                Laatst Bijgewerkt
+                                <span class="sort-indicator" aria-hidden="true">↕</span>
+                            </th>
+                            <th role="columnheader">Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" role="rowgroup">
+                        <!-- Dynamically populated -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Loading state -->
+            <div id="loadingState" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <span style="margin-left: 1rem;">Laden...</span>
+            </div>
+
+            <!-- Empty state -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <div class="empty-state-title">Geen resultaten gevonden</div>
+                <p>Probeer je zoekopdracht aan te passen of filters te verwijderen</p>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <label for="pageSize">Rijen per pagina:</label>
+                <select id="pageSize" class="page-input" style="width: auto;">
+                    <option value="10">10</option>
+                    <option value="25" selected>25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+
+            <div class="pagination-info" id="pageInfo">
+                1-25 van 50
+            </div>
+
+            <div class="pagination-controls">
+                <button class="btn btn-sm" id="firstPage" aria-label="Eerste pagina">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="11 17 6 12 11 7"></polyline>
+                        <polyline points="18 17 13 12 18 7"></polyline>
+                    </svg>
+                </button>
+                <button class="btn btn-sm" id="prevPage" aria-label="Vorige pagina">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span>Pagina</span>
+                    <input type="number" id="pageInput" class="page-input" value="1" min="1" aria-label="Pagina nummer">
+                    <span>van <span id="totalPages">2</span></span>
+                </div>
+
+                <button class="btn btn-sm" id="nextPage" aria-label="Volgende pagina">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+                <button class="btn btn-sm" id="lastPage" aria-label="Laatste pagina">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="13 17 18 12 13 7"></polyline>
+                        <polyline points="6 17 11 12 6 7"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced mockdata met meer realistische waarden
+        const ralColors = [
+            { code: "1015", color: "#E6D2B5", name: "Licht ivoor" },
+            { code: "2004", color: "#F44611", name: "Zuiver oranje" },
+            { code: "3020", color: "#CC0605", name: "Verkeersrood" },
+            { code: "5010", color: "#0E518D", name: "Gentiaanblauw" },
+            { code: "6018", color: "#57A639", name: "Geelgroen" },
+            { code: "7016", color: "#293133", name: "Antracietgrijs" },
+            { code: "7035", color: "#D7D7D7", name: "Lichtgrijs" },
+            { code: "9005", color: "#0A0A0A", name: "Gitzwart" },
+            { code: "9010", color: "#FFFFFF", name: "Zuiver wit" },
+            { code: "9016", color: "#F6F6F6", name: "Verkeerswit" }
+        ];
+
+        const brands = ["AkzoNobel Interpon", "PPG Coating", "Axalta Alesta", "Jotun Facade", "Tiger Drylac", "Teknos", "IGP Pulvertechnik"];
+        const locations = ["A1-01", "A1-02", "A2-01", "A2-02", "B1-01", "B1-02", "B2-01", "B2-02", "C1-01", "C1-02"];
+        const finishes = ["Mat", "Zijdeglans", "Hoogglans", "Structuur", "Metallic"];
+
+        // Genereer realistische data
+        function generateData() {
+            const data = [];
+            for (let i = 0; i < 150; i++) {
+                const ral = ralColors[Math.floor(Math.random() * ralColors.length)];
+                const brand = brands[Math.floor(Math.random() * brands.length)];
+                const finish = finishes[Math.floor(Math.random() * finishes.length)];
+                const maxStock = Math.floor(Math.random() * 500) + 100;
+                const stockLevel = Math.floor(Math.random() * maxStock);
+                const stockPercentage = (stockLevel / maxStock) * 100;
+                
+                let status = "OK";
+                if (stockPercentage < 20) status = "LAAG";
+                else if (stockPercentage < 40) status = "GEM";
+                
+                data.push({
+                    id: `item-${i + 1}`,
+                    ralCode: ral.code,
+                    ralColor: ral.color,
+                    ralName: ral.name,
+                    brand: brand,
+                    productCode: `${brand.substring(0, 3).toUpperCase()}-${ral.code}-${finish.substring(0, 2).toUpperCase()}`,
+                    finish: finish,
+                    status: status,
+                    stockLevel: stockLevel,
+                    maxStock: maxStock,
+                    unit: "kg",
+                    price: (Math.random() * 50 + 10).toFixed(2),
+                    location: locations[Math.floor(Math.random() * locations.length)],
+                    lastUpdated: new Date(Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000)
+                });
+            }
+            return data;
+        }
+
+        // App state
+        const state = {
+            data: generateData(),
+            filteredData: [],
+            selectedItems: new Set(),
+            currentPage: 0,
+            pageSize: 25,
+            sortConfig: { key: 'ralCode', direction: 'asc' },
+            searchTerm: '',
+            statusFilters: [],
+            locationFilters: []
+        };
+
+        // DOM elements
+        const elements = {
+            tableBody: document.getElementById('tableBody'),
+            searchInput: document.getElementById('searchInput'),
+            statusDropdown: document.getElementById('statusDropdown'),
+            locationDropdown: document.getElementById('locationDropdown'),
+            statusBadge: document.getElementById('statusBadge'),
+            locationBadge: document.getElementById('locationBadge'),
+            pageSize: document.getElementById('pageSize'),
+            pageInfo: document.getElementById('pageInfo'),
+            totalPages: document.getElementById('totalPages'),
+            pageInput: document.getElementById('pageInput'),
+            selectAll: document.getElementById('selectAll'),
+            selectedCount: document.getElementById('selectedCount'),
+            bulkAction: document.getElementById('bulkAction'),
+            loadingState: document.getElementById('loadingState'),
+            emptyState: document.getElementById('emptyState'),
+            totalItems: document.getElementById('totalItems'),
+            lowStock: document.getElementById('lowStock'),
+            totalValue: document.getElementById('totalValue')
+        };
+
+        // Update statistics
+        function updateStats() {
+            elements.totalItems.textContent = state.data.length;
+            elements.lowStock.textContent = state.data.filter(item => item.status === 'LAAG').length;
+            
+            const totalValue = state.data.reduce((sum, item) => {
+                return sum + (item.stockLevel * parseFloat(item.price));
+            }, 0);
+            elements.totalValue.textContent = `€${totalValue.toFixed(0)}`;
+        }
+
+        // Update counts
+        function updateCounts() {
+            const counts = { LAAG: 0, GEM: 0, OK: 0 };
+            const locationCounts = {};
+            
+            state.data.forEach(item => {
+                counts[item.status]++;
+                locationCounts[item.location] = (locationCounts[item.location] || 0) + 1;
+            });
+            
+            document.getElementById('count-laag').textContent = counts.LAAG;
+            document.getElementById('count-gem').textContent = counts.GEM;
+            document.getElementById('count-ok').textContent = counts.OK;
+            
+            // Update location dropdown
+            const locationMenu = document.getElementById('locationMenu');
+            locationMenu.innerHTML = '<div class="dropdown-header">Filter op locatie</div>';
+            
+            Object.entries(locationCounts).sort().forEach(([location, count]) => {
+                const item = document.createElement('div');
+                item.className = 'dropdown-item';
+                item.innerHTML = `
+                    <input type="checkbox" id="location-${location}" value="${location}" class="checkbox location-filter">
+                    <label for="location-${location}" style="flex: 1; cursor: pointer;">
+                        ${location} (${count})
+                    </label>
+                `;
+                locationMenu.appendChild(item);
+            });
+        }
+
+        // Filter and sort data
+        function filterAndSort() {
+            state.filteredData = [...state.data];
+
+            // Search filter
+            if (state.searchTerm) {
+                const term = state.searchTerm.toLowerCase();
+                state.filteredData = state.filteredData.filter(item => 
+                    item.ralCode.toLowerCase().includes(term) ||
+                    item.ralName.toLowerCase().includes(term) ||
+                    item.brand.toLowerCase().includes(term) ||
+                    item.location.toLowerCase().includes(term) ||
+                    item.productCode.toLowerCase().includes(term)
+                );
+            }
+
+            // Status filter
+            if (state.statusFilters.length > 0) {
+                state.filteredData = state.filteredData.filter(item => 
+                    state.statusFilters.includes(item.status)
+                );
+            }
+
+            // Location filter
+            if (state.locationFilters.length > 0) {
+                state.filteredData = state.filteredData.filter(item => 
+                    state.locationFilters.includes(item.location)
+                );
+            }
+
+            // Sort
+            state.filteredData.sort((a, b) => {
+                let aValue = a[state.sortConfig.key];
+                let bValue = b[state.sortConfig.key];
+                
+                if (state.sortConfig.key === 'lastUpdated') {
+                    aValue = aValue.getTime();
+                    bValue = bValue.getTime();
+                }
+                
+                if (state.sortConfig.direction === 'asc') {
+                    return aValue > bValue ? 1 : -1;
+                } else {
+                    return aValue < bValue ? 1 : -1;
+                }
+            });
+
+            state.currentPage = 0;
+            state.selectedItems.clear();
+            updateUI();
+        }
+
+        // Update UI
+        function updateUI() {
+            // Update filter badges
+            elements.statusBadge.style.display = state.statusFilters.length > 0 ? 'inline-flex' : 'none';
+            elements.statusBadge.textContent = state.statusFilters.length;
+            
+            elements.locationBadge.style.display = state.locationFilters.length > 0 ? 'inline-flex' : 'none';
+            elements.locationBadge.textContent = state.locationFilters.length;
+
+            // Update pagination
+            const totalPages = Math.ceil(state.filteredData.length / state.pageSize);
+            elements.totalPages.textContent = totalPages || 1;
+            elements.pageInput.value = state.currentPage + 1;
+            elements.pageInput.max = totalPages || 1;
+
+            const start = state.currentPage * state.pageSize + 1;
+            const end = Math.min((state.currentPage + 1) * state.pageSize, state.filteredData.length);
+            elements.pageInfo.textContent = state.filteredData.length > 0 
+                ? `${start}-${end} van ${state.filteredData.length}` 
+                : '0 van 0';
+
+            // Update pagination buttons
+            document.getElementById('firstPage').disabled = state.currentPage === 0;
+            document.getElementById('prevPage').disabled = state.currentPage === 0;
+            document.getElementById('nextPage').disabled = state.currentPage >= totalPages - 1;
+            document.getElementById('lastPage').disabled = state.currentPage >= totalPages - 1;
+
+            // Update bulk actions
+            elements.selectedCount.textContent = state.selectedItems.size;
+            elements.bulkAction.disabled = state.selectedItems.size === 0;
+            elements.selectAll.checked = state.selectedItems.size > 0 && 
+                state.selectedItems.size === state.filteredData.length;
+
+            // Render table
+            renderTable();
+        }
+
+        // Render table
+        function renderTable() {
+            const start = state.currentPage * state.pageSize;
+            const end = start + state.pageSize;
+            const pageData = state.filteredData.slice(start, end);
+
+            if (pageData.length === 0) {
+                elements.tableBody.innerHTML = '';
+                elements.emptyState.style.display = 'block';
+                return;
+            }
+
+            elements.emptyState.style.display = 'none';
+            
+            elements.tableBody.innerHTML = pageData.map(item => {
+                const percentage = (item.stockLevel / item.maxStock) * 100;
+                const progressClass = percentage < 20 ? 'progress-low' : 
+                                    percentage < 50 ? 'progress-medium' : 'progress-high';
+                const statusClass = item.status === 'LAAG' ? 'badge-danger' : 
+                                   item.status === 'GEM' ? 'badge-warning' : 'badge-success';
+                const isSelected = state.selectedItems.has(item.id);
+                const formattedDate = item.lastUpdated.toLocaleDateString('nl-NL');
+                
+                return `
+                    <tr role="row" class="${isSelected ? 'selected' : ''}">
+                        <td role="cell">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox item-checkbox" 
+                                       data-id="${item.id}" ${isSelected ? 'checked' : ''}
+                                       aria-label="Selecteer ${item.ralCode}">
+                            </div>
+                        </td>
+                        <td role="cell">
+                            <div class="color-swatch">
+                                <div class="color-box" style="background-color: ${item.ralColor}" 
+                                     data-tooltip="RAL ${item.ralCode} - ${item.ralName}"></div>
+                                <span class="ral-code">${item.ralCode}</span>
+                            </div>
+                        </td>
+                        <td role="cell">
+                            <div class="product-info">
+                                <span class="brand-name">${item.brand}</span>
+                                <span class="product-code">${item.productCode} • ${item.finish}</span>
+                            </div>
+                        </td>
+                        <td role="cell">
+                            <span class="badge ${statusClass}">${item.status}</span>
+                        </td>
+                        <td role="cell">
+                            <div class="stock-indicator">
+                                <div class="stock-text">
+                                    <span class="stock-current">${item.stockLevel} ${item.unit}</span>
+                                    <span class="stock-max">/ ${item.maxStock} ${item.unit}</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill ${progressClass}" 
+                                         style="width: ${percentage}%"
+                                         role="progressbar" 
+                                         aria-valuenow="${item.stockLevel}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="${item.maxStock}"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td role="cell" class="hide-mobile">${item.location}</td>
+                        <td role="cell" class="hide-mobile">${formattedDate}</td>
+                        <td role="cell">
+                            <div class="actions">
+                                <button class="btn btn-sm" data-action="usage" data-id="${item.id}"
+                                        aria-label="Registreer verbruik voor ${item.ralCode}">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                    Verbruik
+                                </button>
+                                <button class="btn btn-sm" data-action="edit" data-id="${item.id}"
+                                        aria-label="Bewerk ${item.ralCode}">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                    </svg>
+                                    Bewerk
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Event handlers
+        elements.searchInput.addEventListener('input', (e) => {
+            state.searchTerm = e.target.value;
+            filterAndSort();
+        });
+
+        // Dropdown handlers
+        function setupDropdown(dropdown) {
+            const button = dropdown.querySelector('button');
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = dropdown.classList.contains('open');
+                document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+                if (!isOpen) {
+                    dropdown.classList.add('open');
+                    button.setAttribute('aria-expanded', 'true');
+                } else {
+                    button.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        setupDropdown(elements.statusDropdown);
+        setupDropdown(elements.locationDropdown);
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.dropdown').forEach(d => {
+                d.classList.remove('open');
+                d.querySelector('button').setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Status filter handlers
+        document.addEventListener('change', (e) => {
+            if (e.target.matches('.checkbox')) {
+                if (e.target.id.startsWith('status-')) {
+                    if (e.target.checked) {
+                        state.statusFilters.push(e.target.value);
+                    } else {
+                        state.statusFilters = state.statusFilters.filter(s => s !== e.target.value);
+                    }
+                    filterAndSort();
+                } else if (e.target.classList.contains('location-filter')) {
+                    if (e.target.checked) {
+                        state.locationFilters.push(e.target.value);
+                    } else {
+                        state.locationFilters = state.locationFilters.filter(l => l !== e.target.value);
+                    }
+                    filterAndSort();
+                } else if (e.target.classList.contains('item-checkbox')) {
+                    const id = e.target.dataset.id;
+                    if (e.target.checked) {
+                        state.selectedItems.add(id);
+                    } else {
+                        state.selectedItems.delete(id);
+                    }
+                    updateUI();
+                }
+            }
+        });
+
+        // Select all handler
+        elements.selectAll.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                state.filteredData.forEach(item => state.selectedItems.add(item.id));
+            } else {
+                state.selectedItems.clear();
+            }
+            updateUI();
+        });
+
+        // Sort handlers
+        document.querySelectorAll('th.sortable').forEach(th => {
+            th.addEventListener('click', () => {
+                const key = th.dataset.sort;
+                const currentDirection = state.sortConfig.key === key ? state.sortConfig.direction : null;
+                
+                // Update sort config
+                state.sortConfig.key = key;
+                state.sortConfig.direction = currentDirection === 'asc' ? 'desc' : 'asc';
+                
+                // Update UI indicators
+                document.querySelectorAll('.sort-indicator').forEach(indicator => {
+                    indicator.classList.remove('active');
+                    indicator.textContent = '↕';
+                    indicator.parentElement.setAttribute('aria-sort', 'none');
+                });
+                
+                const indicator = th.querySelector('.sort-indicator');
+                indicator.classList.add('active');
+                indicator.textContent = state.sortConfig.direction === 'asc' ? '↑' : '↓';
+                th.setAttribute('aria-sort', state.sortConfig.direction === 'asc' ? 'ascending' : 'descending');
+                
+                filterAndSort();
+            });
+        });
+
+        // Pagination handlers
+        elements.pageSize.addEventListener('change', (e) => {
+            state.pageSize = parseInt(e.target.value);
+            state.currentPage = 0;
+            updateUI();
+        });
+
+        elements.pageInput.addEventListener('change', (e) => {
+            const page = parseInt(e.target.value) - 1;
+            const maxPage = Math.ceil(state.filteredData.length / state.pageSize) - 1;
+            state.currentPage = Math.max(0, Math.min(page, maxPage));
+            updateUI();
+        });
+
+        document.getElementById('firstPage').addEventListener('click', () => {
+            state.currentPage = 0;
+            updateUI();
+        });
+
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (state.currentPage > 0) {
+                state.currentPage--;
+                updateUI();
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            const maxPage = Math.ceil(state.filteredData.length / state.pageSize) - 1;
+            if (state.currentPage < maxPage) {
+                state.currentPage++;
+                updateUI();
+            }
+        });
+
+        document.getElementById('lastPage').addEventListener('click', () => {
+            state.currentPage = Math.ceil(state.filteredData.length / state.pageSize) - 1;
+            updateUI();
+        });
+
+        // Action buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('[data-action]')) {
+                const action = e.target.dataset.action;
+                const id = e.target.dataset.id;
+                console.log(`Action: ${action} for item ${id}`);
+                // Implement action handlers here
+            }
+        });
+
+        // Export handler
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            console.log('Exporting data...');
+            // Implement export functionality
+        });
+
+        // Refresh handler
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+            // Simulate loading
+            elements.loadingState.style.display = 'flex';
+            elements.tableBody.innerHTML = '';
+            
+            setTimeout(() => {
+                elements.loadingState.style.display = 'none';
+                state.data = generateData();
+                updateStats();
+                updateCounts();
+                filterAndSort();
+            }, 1000);
+        });
+
+        // Initialize
+        updateStats();
+        updateCounts();
+        filterAndSort();
+    </script>
+</body>
+</html>
