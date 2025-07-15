@@ -8,9 +8,7 @@ import { Button } from '@/components/ui/button'
 import { 
   Sheet, 
   SheetContent, 
-  SheetTrigger,
-  SheetHeader,
-  SheetTitle
+  SheetTrigger
 } from '@/components/ui/sheet'
 import { 
   Menu,
@@ -50,9 +48,18 @@ export function Shell({ children }: ShellProps) {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="p-0 w-72 bg-slate-900 border-slate-700">
-          <SheetHeader className="p-6 border-b border-slate-700">
-            <SheetTitle className="text-sky-400 text-xl font-bold">Stock2coat</SheetTitle>
-          </SheetHeader>
+          <div className="border-b border-slate-700 p-4">
+            <Link href="/" className="block">
+              <img 
+                src="/logo.png" 
+                alt="Stock2Coat" 
+                width={180} 
+                height={48} 
+                className="h-12 w-auto object-contain" 
+                style={{ display: 'block', maxWidth: '180px', height: '48px' }}
+              />
+            </Link>
+          </div>
           <nav className="p-4">
             <ul className="space-y-2">
               {navigation.map((item) => {
@@ -86,22 +93,35 @@ export function Shell({ children }: ShellProps) {
         sidebarCollapsed ? "w-16" : "w-64"
       )}>
         {/* Sidebar header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-700">
+        <div className="flex items-center justify-between border-b border-slate-700">
           {!sidebarCollapsed && (
-            <h1 className="text-xl font-bold text-sky-400">Stock2coat</h1>
+            <div className="p-4">
+              <Link href="/" className="block">
+                <img 
+                  src="/logo.png" 
+                  alt="Stock2Coat" 
+                  width={180} 
+                  height={48} 
+                  className="h-12 w-auto object-contain" 
+                  style={{ display: 'block', maxWidth: '180px', height: '48px' }}
+                />
+              </Link>
+            </div>
           )}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="h-8 w-8 text-slate-100 hover:text-white hover:bg-slate-700"
-          >
-            {sidebarCollapsed ? (
-              <ChevronRight className="h-4 w-4" />
-            ) : (
-              <ChevronLeft className="h-4 w-4" />
-            )}
-          </Button>
+          <div className="p-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className="h-8 w-8 text-slate-100 hover:text-white hover:bg-slate-700"
+            >
+              {sidebarCollapsed ? (
+                <ChevronRight className="h-4 w-4" />
+              ) : (
+                <ChevronLeft className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
         </div>
 
         {/* Navigation */}
