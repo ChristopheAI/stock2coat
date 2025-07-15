@@ -49,9 +49,9 @@ export function Shell({ children }: ShellProps) {
             <Menu className="h-4 w-4" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="p-0 w-72">
-          <SheetHeader className="p-6 border-b">
-            <SheetTitle>Stock2coat</SheetTitle>
+        <SheetContent side="left" className="p-0 w-72 bg-slate-900 border-slate-700">
+          <SheetHeader className="p-6 border-b border-slate-700">
+            <SheetTitle className="text-sky-400 text-xl font-bold">Stock2coat</SheetTitle>
           </SheetHeader>
           <nav className="p-4">
             <ul className="space-y-2">
@@ -64,8 +64,8 @@ export function Shell({ children }: ShellProps) {
                       className={cn(
                         "flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
                         isActive
-                          ? "bg-blue-100 text-blue-700"
-                          : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                          ? "bg-slate-700 text-sky-400"
+                          : "text-slate-100 hover:text-white hover:bg-slate-700"
                       )}
                       onClick={() => setSidebarOpen(false)}
                     >
@@ -82,19 +82,19 @@ export function Shell({ children }: ShellProps) {
 
       {/* Desktop sidebar */}
       <div className={cn(
-        "hidden md:flex flex-col bg-white border-r border-gray-200 transition-all duration-300",
+        "hidden md:flex flex-col bg-slate-900 border-r border-slate-700 transition-all duration-300",
         sidebarCollapsed ? "w-16" : "w-64"
       )}>
         {/* Sidebar header */}
-        <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center justify-between p-4 border-b border-slate-700">
           {!sidebarCollapsed && (
-            <h1 className="text-xl font-semibold text-gray-900">Stock2coat</h1>
+            <h1 className="text-xl font-bold text-sky-400">Stock2coat</h1>
           )}
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="h-8 w-8"
+            className="h-8 w-8 text-slate-100 hover:text-white hover:bg-slate-700"
           >
             {sidebarCollapsed ? (
               <ChevronRight className="h-4 w-4" />
@@ -117,8 +117,8 @@ export function Shell({ children }: ShellProps) {
                       "flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
                       sidebarCollapsed && "justify-center",
                       isActive
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                        ? "bg-slate-700 text-sky-400"
+                        : "text-slate-100 hover:text-white hover:bg-slate-700"
                     )}
                     title={sidebarCollapsed ? item.name : undefined}
                   >
@@ -134,18 +134,18 @@ export function Shell({ children }: ShellProps) {
         </nav>
 
         {/* Sidebar footer */}
-        <div className="p-4 border-t">
+        <div className="p-4 border-t border-slate-700">
           <div className={cn(
-            "flex items-center gap-3 text-sm text-gray-500",
+            "flex items-center gap-3 text-sm text-slate-100",
             sidebarCollapsed && "justify-center"
           )}>
-            <div className="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-medium">
+            <div className="h-8 w-8 bg-sky-500 rounded-full flex items-center justify-center text-white text-xs font-medium">
               S
             </div>
             {!sidebarCollapsed && (
               <div>
-                <p className="font-medium">Strameco</p>
-                <p className="text-xs text-gray-400">Pilot klant</p>
+                <p className="font-medium text-slate-100">Strameco</p>
+                <p className="text-xs text-slate-400">Pilot klant</p>
               </div>
             )}
           </div>
@@ -153,7 +153,7 @@ export function Shell({ children }: ShellProps) {
       </div>
 
       {/* Main content */}
-      <main className="flex-1 overflow-hidden">
+      <main className="flex-1 overflow-hidden bg-slate-50">
         {/* Header */}
         <header className="bg-white border-b border-gray-200 px-4 py-4 md:px-6">
           <div className="flex items-center justify-between">
@@ -172,7 +172,7 @@ export function Shell({ children }: ShellProps) {
         </header>
 
         {/* Content */}
-        <div className="p-4 md:p-6 h-full overflow-auto">
+        <div className="p-4 md:p-6 h-full overflow-auto bg-slate-50">
           {children}
         </div>
       </main>
