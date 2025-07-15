@@ -522,3 +522,5 @@ Import trace:
  GET /inventory 200 in 795ms
  GET / 200 in 87ms
  GET /inventory 200 in 69ms
+ ✓ Compiled in 318ms
+ ✓ Compiled in 138ms

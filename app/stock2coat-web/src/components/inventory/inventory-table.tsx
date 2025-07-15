@@ -16,7 +16,7 @@ interface InventoryTableProps {
 
 export function InventoryTable({ data, onConsume, onEdit, onRowClick }: InventoryTableProps) {
   const [searchTerm, setSearchTerm] = useState('')
-  const [statusFilter, setStatusFilter] = useState<InventoryStatus | 'ALL'>('ALL')
+  const [statusFilter] = useState<InventoryStatus | 'ALL'>('ALL')
 
   const filteredData = data.filter(item => {
     const matchesSearch = item.ralCode.toLowerCase().includes(searchTerm.toLowerCase()) ||

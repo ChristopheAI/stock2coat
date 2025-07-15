@@ -80,9 +80,15 @@ export const inventoryData: InventoryItem[] = [
     status: 'GEM',
     currentStock: 253,
     maxStock: 280,
+    minStock: 50,
     location: 'A1-01',
     lastUpdated: '13-7-2025',
-    unit: 'kg'
+    unit: 'kg',
+    supplier: 'Hempel Netherlands',
+    weight: 25,
+    costPerUnit: 15.75,
+    description: 'Oranje poedercoating voor industriële toepassingen',
+    transactions: []
   },
   {
     id: '4',
@@ -93,9 +99,15 @@ export const inventoryData: InventoryItem[] = [
     status: 'LAAG',
     currentStock: 183,
     maxStock: 204,
+    minStock: 40,
     location: 'B1-01',
     lastUpdated: '17-6-2025',
-    unit: 'kg'
+    unit: 'kg',
+    supplier: 'PPG Industries',
+    weight: 20,
+    costPerUnit: 18.25,
+    description: 'Vuurrood poedercoating voor decoratieve toepassingen',
+    transactions: []
   },
   {
     id: '5',
@@ -106,9 +118,15 @@ export const inventoryData: InventoryItem[] = [
     status: 'GEM',
     currentStock: 24,
     maxStock: 306,
+    minStock: 60,
     location: 'B1-02',
     lastUpdated: '21-6-2025',
-    unit: 'kg'
+    unit: 'kg',
+    supplier: 'Jotun Nederland',
+    weight: 25,
+    costPerUnit: 16.50,
+    description: 'Ultramarijn blauw poedercoating',
+    transactions: []
   },
   {
     id: '6',
@@ -119,9 +137,15 @@ export const inventoryData: InventoryItem[] = [
     status: 'GEM',
     currentStock: 332,
     maxStock: 363,
+    minStock: 70,
     location: 'A1-01',
     lastUpdated: '18-6-2025',
-    unit: 'kg'
+    unit: 'kg',
+    supplier: 'AkzoNobel Nederland',
+    weight: 25,
+    costPerUnit: 17.25,
+    description: 'Patina groen poedercoating',
+    transactions: []
   },
   {
     id: '7',
@@ -132,9 +156,15 @@ export const inventoryData: InventoryItem[] = [
     status: 'GEM',
     currentStock: 54,
     maxStock: 256,
+    minStock: 50,
     location: 'A2-01',
     lastUpdated: '10-7-2025',
-    unit: 'kg'
+    unit: 'kg',
+    supplier: 'Teknos Nederland BV',
+    weight: 25,
+    costPerUnit: 13.75,
+    description: 'Eekhoorn grijs poedercoating',
+    transactions: []
   },
   {
     id: '8',
@@ -145,9 +175,15 @@ export const inventoryData: InventoryItem[] = [
     status: 'LAAG',
     currentStock: 322,
     maxStock: 362,
+    minStock: 70,
     location: 'C1-01',
     lastUpdated: '10-7-2025',
-    unit: 'kg'
+    unit: 'kg',
+    supplier: 'Hempel Netherlands',
+    weight: 25,
+    costPerUnit: 14.25,
+    description: 'Antraciet grijs poedercoating',
+    transactions: []
   },
   {
     id: '9',
@@ -158,9 +194,15 @@ export const inventoryData: InventoryItem[] = [
     status: 'LAAG',
     currentStock: 127,
     maxStock: 222,
+    minStock: 45,
     location: 'A1-02',
     lastUpdated: '28-6-2025',
-    unit: 'kg'
+    unit: 'kg',
+    supplier: 'Hempel Netherlands',
+    weight: 20,
+    costPerUnit: 12.75,
+    description: 'Lichtgrijs poedercoating',
+    transactions: []
   },
   {
     id: '10',
@@ -171,8 +213,14 @@ export const inventoryData: InventoryItem[] = [
     status: 'OK',
     currentStock: 274,
     maxStock: 479,
+    minStock: 95,
     location: 'A2-01',
     lastUpdated: '16-6-2025',
-    unit: 'kg'
+    unit: 'kg',
+    supplier: 'Jotun Nederland',
+    weight: 25,
+    costPerUnit: 11.50,
+    description: 'Creme wit poedercoating',
+    transactions: []
   }
 ]

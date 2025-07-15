@@ -45,7 +45,7 @@ export default function InventoryPage() {
     setEditItem(null)
   }
 
-  const handleSaveEdit = (values: any) => {
+  const handleSaveEdit = (values: Partial<InventoryItem>) => {
     if (editItem) {
       const updatedData = inventoryData.map(item => 
         item.id === editItem.id 

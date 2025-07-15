@@ -29,7 +29,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { InventoryItem, InventoryStatus } from "@/lib/types"
+import { InventoryItem } from "@/lib/types"
 import { X, Save } from "lucide-react"
 
 const editInventorySchema = z.object({
